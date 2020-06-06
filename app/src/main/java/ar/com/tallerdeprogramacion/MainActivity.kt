@@ -26,7 +26,6 @@ class MainActivity : AppCompatActivity() {
                 ViewCompat.getTransitionName(imageView).toString()
             )
             startActivity(intent,options.toBundle())
-            //startActivity(intent)
         }
     }
 }
