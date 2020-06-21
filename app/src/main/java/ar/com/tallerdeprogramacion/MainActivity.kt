@@ -7,7 +7,6 @@ import android.widget.HorizontalScrollView
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintSet
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ar.com.tallerdeprogramacion.retrofit.Products
@@ -66,7 +65,7 @@ class MainActivity : AppCompatActivity() {
                 .enqueue(object : Callback<Products> {
                     override fun onResponse(call: Call<Products>, response: Response<Products>) {
                        if(response.isSuccessful){
-                           HideBanner()
+                           hideBanner()
                            //Log.d("PRODUCTOS",response.body()!!.toString())
                            val products = response.body()!!
                            productsAdapter.updateProducts(products.results)
@@ -85,9 +84,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showError() {
-        Toast.makeText(this@MainActivity, "Hubo un error", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this@MainActivity, getString(R.string.error_mesagge), Toast.LENGTH_SHORT).show()
     }
-    private fun HideBanner(){
+    private fun hideBanner(){
        val scrollView= findViewById<HorizontalScrollView>(R.id.scrollView)
         scrollView.visibility=View.GONE
     }

@@ -25,7 +25,7 @@ class ProductsAdapter(
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         val product = productList[position]
         holder.title.text = product.title
-        holder.price.text = "$ " + product.price
+        holder.price.text = """$ ${product.price}"""
         holder.legend.text = if(product.condition == "new") "Nuevo" else "Usado"
         holder.description.text =  product.id
 

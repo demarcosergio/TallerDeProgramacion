@@ -40,6 +40,7 @@
         app:layout_constraintGuide_begin="50dp" />
     <ImageButton
         android:id="@+id/imageButton3"
+        android:contentDescription="cartIcon"
         android:layout_width="33dp"
         android:layout_marginTop="3dp"
         android:layout_height="33dp"

@@ -15,6 +15,7 @@
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="productMainImage"
         tools:srcCompat="@tools:sample/avatars"/>
     <TextView
         android:id="@+id/textViewShipping"
@@ -24,7 +25,7 @@
         android:background="#2196f3"
         android:lines="1"
         android:layout_marginStart="15dp"
-        android:text="Envío con normalidad"
+        android:text="@string/envio_con_normalidad"
         android:textColor="@android:color/background_light"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/barrier"

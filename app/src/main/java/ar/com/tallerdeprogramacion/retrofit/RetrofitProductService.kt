@@ -1,4 +1,4 @@
-package ar.com.tallerdeprogramacion.retrofit;
+package ar.com.tallerdeprogramacion.retrofit
 
 import retrofit2.Call
 import retrofit2.Retrofit

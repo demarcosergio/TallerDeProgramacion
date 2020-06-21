@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">TallerDeProgramacion</string>
     <string name="search">Buscar en Mercado Libre</string>
+    <string name="opiniones">278 opiniones</string>
+    <string name="envio_con_normalidad">Envío con normalidad</string>
+    <string name="comprar">Comprar</string>
+    <string name="error_mesagge">Hubo un error</string>
 </resources>
