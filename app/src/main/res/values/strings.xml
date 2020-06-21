@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">TallerDeProgramacion</string>
+    <string name="search">Buscar en Mercado Libre</string>
 </resources>
