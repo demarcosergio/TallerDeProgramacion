@@ -8,7 +8,16 @@
     tools:context=".MainActivity">
 
     <include layout="@layout/activity_toolbar"/>
-
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewProductList"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintVertical_bias="0.0" />
     <HorizontalScrollView
         android:id="@+id/scrollView"
         android:layout_marginTop="75dp"
@@ -76,15 +85,6 @@
                 app:layout_constraintTop_toTopOf="parent" />
         </LinearLayout>
     </HorizontalScrollView>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewProductList"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/scrollView"
-        app:layout_constraintVertical_bias="0.0" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

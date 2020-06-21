@@ -1,24 +1,22 @@
 package ar.com.tallerdeprogramacion
 
 import android.content.Intent
-import android.media.Image
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.ImageView
+import android.widget.HorizontalScrollView
 import android.widget.SearchView
 import android.widget.Toast
-import androidx.core.app.ActivityOptionsCompat
-import androidx.core.view.ViewCompat
+import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import ar.com.tallerdeprogramacion.retrofit.*
-import kotlinx.android.synthetic.main.activity_product_detail.*
+import ar.com.tallerdeprogramacion.retrofit.Products
+import ar.com.tallerdeprogramacion.retrofit.ProductsAdapter
+import ar.com.tallerdeprogramacion.retrofit.RetrofitProductService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -68,6 +66,7 @@ class MainActivity : AppCompatActivity() {
                 .enqueue(object : Callback<Products> {
                     override fun onResponse(call: Call<Products>, response: Response<Products>) {
                        if(response.isSuccessful){
+                           HideBanner()
                            //Log.d("PRODUCTOS",response.body()!!.toString())
                            val products = response.body()!!
                            productsAdapter.updateProducts(products.results)
@@ -87,5 +86,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun showError() {
         Toast.makeText(this@MainActivity, "Hubo un error", Toast.LENGTH_SHORT).show()
+    }
+    private fun HideBanner(){
+       val scrollView= findViewById<HorizontalScrollView>(R.id.scrollView)
+        scrollView.visibility=View.GONE
     }
 }
