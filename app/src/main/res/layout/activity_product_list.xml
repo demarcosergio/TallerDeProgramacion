@@ -15,7 +15,7 @@
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="productMainImage"
+        android:contentDescription="@string/productmainimage"
         tools:srcCompat="@tools:sample/avatars"/>
     <TextView
         android:id="@+id/textViewShipping"

@@ -2,13 +2,12 @@ package ar.com.tallerdeprogramacion
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.widget.HorizontalScrollView
+import android.view.LayoutInflater
 import android.widget.SearchView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import ar.com.tallerdeprogramacion.Utils.*
+import ar.com.tallerdeprogramacion.databinding.ActivityMainBinding
 import ar.com.tallerdeprogramacion.retrofit.Products
 import ar.com.tallerdeprogramacion.retrofit.ProductsAdapter
 import ar.com.tallerdeprogramacion.retrofit.RetrofitProductService
@@ -22,12 +21,20 @@ class MainActivity : AppCompatActivity() {
     private lateinit var productService : RetrofitProductService
     private lateinit var productsAdapter: ProductsAdapter
 
+    private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(LayoutInflater.from(this))
+        setContentView(binding.root)
         injectDependencies()
-        setSearchViewListener()
+        val searchFromOtherActivity = intent.extras?.getBoolean(getString(R.string.postQueryBoolean))
+        if(searchFromOtherActivity!=null && searchFromOtherActivity){
+            onSearch(intent.extras!!.getString(getString(R.string.postQueryText)))
+        }
+        else{setSearchViewListener()}
+
         setupRecyclerView()
+        ProgressBarControl().hideProgressBar(binding.progressBar)
     }
 
     private fun injectDependencies() {
@@ -40,9 +47,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView() {
-        val recyclerView = findViewById<RecyclerView>(R.id.recyclerViewProductList)
-        recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        recyclerView.adapter = productsAdapter
+        binding.recyclerViewProductList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        binding.recyclerViewProductList.adapter = productsAdapter
     }
 
     private fun setSearchViewListener() {
@@ -60,34 +66,36 @@ class MainActivity : AppCompatActivity() {
         )
     }
     private fun onSearch(query: String?){
-        query?.run {
-            productService.search(query)
-                .enqueue(object : Callback<Products> {
-                    override fun onResponse(call: Call<Products>, response: Response<Products>) {
-                       if(response.isSuccessful){
-                           hideBanner()
-                           //Log.d("PRODUCTOS",response.body()!!.toString())
-                           val products = response.body()!!
-                           productsAdapter.updateProducts(products.results)
-                           productsAdapter.notifyDataSetChanged()
-                       }
-                        else{
-                           showError()
-                       }
-                    }
+        if(NetworkControl().isActiveNetwork(this@MainActivity)){
+            query?.run {
+                ProgressBarControl().showProgressBar(binding.progressBar)
+                KeyboardControl().hideKeyboard(this@MainActivity)
+                //hideKeyboard(this@MainActivity)
+                productService.search(query)
+                    .enqueue(object : Callback<Products> {
+                        override fun onResponse(call: Call<Products>, response: Response<Products>) {
+                            ProgressBarControl().hideProgressBar(binding.progressBar)
+                            if(response.isSuccessful){
+                                BannerControl().hideBanner(binding.scrollView)
+                                val products = response.body()!!
+                                productsAdapter.updateProducts(products.results)
+                                productsAdapter.notifyDataSetChanged()
+                            }
+                            else{
+                                ErrorControl().showError(getString(R.string.sinResultados),getString(
+                                                                    R.string.sinResultadosDetalle),this@MainActivity)
+                            }
+                        }
 
-                    override fun onFailure(call: Call<Products>?, t: Throwable?) {
-                        showError()
-                    }
-                })
+                        override fun onFailure(call: Call<Products>?, t: Throwable?) {
+                            ProgressBarControl().hideProgressBar(binding.progressBar)
+                            ErrorControl().showError(getString(R.string.errorEnBusqueda),getString(R.string.errorEnBusquedaDetalle),this@MainActivity)
+                        }
+                    })
+            }
         }
-    }
-
-    private fun showError() {
-        Toast.makeText(this@MainActivity, getString(R.string.error_mesagge), Toast.LENGTH_SHORT).show()
-    }
-    private fun hideBanner(){
-       val scrollView= findViewById<HorizontalScrollView>(R.id.scrollView)
-        scrollView.visibility=View.GONE
+        else{
+            ErrorControl().showError(getString(R.string.SinInternet),getString(R.string.SinInternetDetalle),this@MainActivity)
+        }
     }
 }

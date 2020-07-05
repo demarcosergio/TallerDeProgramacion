@@ -5,4 +5,23 @@
     <string name="envio_con_normalidad">Envío con normalidad</string>
     <string name="comprar">Comprar</string>
     <string name="error_mesagge">Hubo un error</string>
+    <string name="banner5">Banner5</string>
+    <string name="banner4">Banner4</string>
+    <string name="banner3">Banner3</string>
+    <string name="banner2">Banner2</string>
+    <string name="banner1">Banner1</string>
+    <string name="estadoNuevo">Nuevo</string>
+    <string name="estadoUsado">Usado</string>
+    <string name="Vendidos">Vendidos</string>
+    <string name="postQueryBoolean">postOnQueryTextSubmit</string>
+    <string name="postQueryText">postQueryText</string>
+    <string name="sinResultados">No se encontraron resultados</string>
+    <string name="sinResultadosDetalle">Por favor cambie el criterio de búsqueda y vuelva a intentarlo.</string>
+    <string name="errorEnBusqueda">No se pudo realizar la busqueda!</string>
+    <string name="errorEnBusquedaDetalle">Por favor vuelva a intentarlo.</string>
+    <string name="SinInternet">Se perdió la conexion a internet</string>
+    <string name="SinInternetDetalle">No se detectó una red activa. Verifica la conexión de datos y vuelve a intentarlo.</string>
+    <string name="productdetail">productDetail</string>
+    <string name="productmainimage">productMainImage</string>
+    <string name="carticon">cartIcon</string>
 </resources>
